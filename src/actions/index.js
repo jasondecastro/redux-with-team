@@ -15,3 +15,11 @@ export function fetchDogs(){
     payload: dogs
   }
 }
+
+export function addCat(name, length){
+  const cat = [{id: length + 1, name: name}]
+  return {
+    type: 'ADD_CAT',
+    payload: cat
+  }
+}

@@ -4,17 +4,36 @@ import * as actions from '../actions/index'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-function CatNew(props) {
-  debugger;
-  return <div>NEW CAT PAGE</div>
+class CatNew extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  onSubmit(e) {
+    e.preventDefault()
+    this.props.actions.addCat(this.refs.name.value, this.props.cats.length)
+    this.refs.name.value = ''
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.onSubmit.bind(this)}>
+        <h1>New Cat</h1>
+        <input type="text" ref="name" placeholder="Name" />
+      </form>
+    )
+  }
 }
 
 function mapDispatchToProps(dispatch) {
-  debugger;
   return {actions: bindActionCreators(actions, dispatch)}
 }
 
-const componentCreator = connect(null, mapDispatchToProps)
+function mapStateToProps(state) {
+  return {cats: state.cats}
+}
+
+const componentCreator = connect(mapStateToProps, mapDispatchToProps)
 export default componentCreator(CatNew);
 
 
